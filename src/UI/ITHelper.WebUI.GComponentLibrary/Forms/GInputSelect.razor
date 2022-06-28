@@ -1,0 +1,24 @@
+@typeparam TData
+@typeparam TValue
+ 
+
+
+<div class="form-group spacing @Class">
+    @if(!String.IsNullOrEmpty(LabelMaterialIcon))
+    {
+        <span>@LabelMaterialIcon</span>
+    }   
+    <button  onclick="@OnClick" class="link-light material-icons">@Icon</button>
+    <label class="form-label inline-label" for="@Id">
+        @Label
+    </label>
+            <InputSelect class="custom-select form-control" id="@Id" @bind-Value="@BindedValue" @onblur="@UpdateBindedValue">
+                <option value="@String.Empty">None</option>
+                @foreach(var item in Data)
+                {
+                    <option value="@typeof(TData).GetProperty(OptionValue).GetValue(item,null)">@typeof(TData).GetProperty(OptionDisplay).GetValue(item,null)</option>
+                }
+            </InputSelect>
+</div>
+
+

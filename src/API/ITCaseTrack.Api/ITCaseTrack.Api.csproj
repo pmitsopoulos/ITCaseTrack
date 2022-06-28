@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="6.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\ITCaseTrack.Application\ITCaseTrack.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastracture\ITCaseTrack.Persistence\ITCaseTrack.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

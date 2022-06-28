@@ -1,0 +1,15 @@
+﻿<button class="@Class" @onclick=OnClick>
+    @if(!string.IsNullOrWhiteSpace(ButtonName))
+    { 
+        <div class="button-text">
+            @ButtonName
+        </div>
+    }
+    @if(!string.IsNullOrWhiteSpace(MaterialIcon))
+    {     
+        <div class="material-icons button-icon">
+            @MaterialIcon
+        </div>
+    }
+</button>
+

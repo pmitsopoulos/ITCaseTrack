@@ -1,0 +1,29 @@
+@page "/contacts/form/{id:int?}"
+
+
+<div class="container" style="max-height: 85vh; height: auto; min-height: 40vh; overflow-y: scroll;">
+    <EditForm Model="@Contact" OnValidSubmit="Post">
+        <FluentValidationValidator Validator="@validator"/>
+        <ValidationSummary />
+        <div class="row">
+            <GInputText Id="contact-name" Class="col-lg-12 col-md-12" Label="Name" @bind-BindedValue="@Contact.Name" ></GInputText>
+            <ValidationMessage For="(()=>Contact.Name)"/>
+        </div>
+        <div class="row">
+            <GInputText Id="contact-phone" Class="col-lg-6 col-md-12" Label="Phone Number" @bind-BindedValue="@Contact.PhoneNumber"></GInputText>
+            <ValidationMessage For="(()=>Contact.PhoneNumber)"/>
+            <GInputText Id="contact-email" Class="col-lg-6 col-md-12" Label="Email" @bind-BindedValue="@Contact.Email"></GInputText>
+            <ValidationMessage For="(()=>Contact.Email)"/>
+        </div>
+        <div class="row">
+            <GInputTextArea Id="contact-description" Class="col-12" Label="Description" @bind-BindedValue="@Contact.Description"></GInputTextArea>
+            <ValidationMessage For="(()=>Contact.Description)"/>
+        </div>
+        <div class="row">
+           <div class="form-group col-12">
+                <MudButton  Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Done" ButtonType="ButtonType.Submit">Confirm Changes</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Filled.Clear" ButtonType="ButtonType.Submit">Cancel</MudButton>                  
+            </div>
+        </div>
+    </EditForm>
+</div>

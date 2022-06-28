@@ -1,0 +1,16 @@
+.form-text-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.form-text-input:focus {
+     outline: none;
+     box-shadow: inset 0 0 2px 2px #007261;
+}
+
+.form-group-comp {
+    margin: 10px 0 10px 0;
+    width: 100%;
+    padding: 5px;
+}

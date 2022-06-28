@@ -1,41 +1,42 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0BA21720-0128-40EE-A15F-C2E4E82B75E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{556C06B9-E0B6-44E5-A7D0-F352C6E11A99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCaseTrack.Api", "src\API\ITCaseTrack.Api\ITCaseTrack.Api.csproj", "{EC5A73B5-CA0A-4FD7-8C3E-82D4145BB4B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITCaseTrack.Api", "src\API\ITCaseTrack.Api\ITCaseTrack.Api.csproj", "{EC5A73B5-CA0A-4FD7-8C3E-82D4145BB4B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{8B951AB4-442D-46C1-9C18-51E19112B254}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCaseTrack.Application", "src\Core\ITCaseTrack.Application\ITCaseTrack.Application.csproj", "{1E5E9473-72FE-4DEB-8175-DA0E2C7732E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITCaseTrack.Application", "src\Core\ITCaseTrack.Application\ITCaseTrack.Application.csproj", "{1E5E9473-72FE-4DEB-8175-DA0E2C7732E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCaseTrack.Domain", "src\Core\ITCaseTrack.Domain\ITCaseTrack.Domain.csproj", "{4CD1A59D-BB38-469A-B571-7FBC22908A91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITCaseTrack.Domain", "src\Core\ITCaseTrack.Domain\ITCaseTrack.Domain.csproj", "{4CD1A59D-BB38-469A-B571-7FBC22908A91}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastracture", "Infrastracture", "{C942DC20-D803-42FA-A680-14918982CDB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCaseTrack.Identity", "src\Infrastracture\ITCaseTrack.Identity\ITCaseTrack.Identity.csproj", "{8FE7279C-596A-4A8B-97E5-E03F45B22668}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITCaseTrack.Identity", "src\Infrastracture\ITCaseTrack.Identity\ITCaseTrack.Identity.csproj", "{8FE7279C-596A-4A8B-97E5-E03F45B22668}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCaseTrack.Infrastructure", "src\Infrastracture\ITCaseTrack.Infrastructure\ITCaseTrack.Infrastructure.csproj", "{FDAD6A59-57F7-433C-81FA-6EAA32F15D7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITCaseTrack.Infrastructure", "src\Infrastracture\ITCaseTrack.Infrastructure\ITCaseTrack.Infrastructure.csproj", "{FDAD6A59-57F7-433C-81FA-6EAA32F15D7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCaseTrack.Persistence", "src\Infrastracture\ITCaseTrack.Persistence\ITCaseTrack.Persistence.csproj", "{837A94A4-37E5-489A-9656-98A90B1D9213}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITCaseTrack.Persistence", "src\Infrastracture\ITCaseTrack.Persistence\ITCaseTrack.Persistence.csproj", "{837A94A4-37E5-489A-9656-98A90B1D9213}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{30C12F51-33D5-4BD1-893E-A5BD4C371477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITCaseTrack.WebUI", "src\UI\ITCaseTrack.WebUI\ITCaseTrack.WebUI.csproj", "{D5FD46CC-0AB5-47CF-86BA-5635FE8D77DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITCaseTrack.WebUI", "src\UI\ITCaseTrack.WebUI\ITCaseTrack.WebUI.csproj", "{D5FD46CC-0AB5-47CF-86BA-5635FE8D77DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI.ComponentLibrary", "src\UI\WebUI.ComponentLibrary\WebUI.ComponentLibrary.csproj", "{7C71092A-9C56-48CE-AF13-E343CA9B79CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI.ComponentLibrary", "src\UI\WebUI.ComponentLibrary\WebUI.ComponentLibrary.csproj", "{7C71092A-9C56-48CE-AF13-E343CA9B79CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "Project1\Project1.csproj", "{A5CEC855-6904-48D9-953B-67A49D5D7C0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITHelper.WebUI.GComponentLibrary", "src\UI\ITHelper.WebUI.GComponentLibrary\ITHelper.WebUI.GComponentLibrary.csproj", "{FBDB1763-983A-47CB-B08A-E17F75FCE47A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EC5A73B5-CA0A-4FD7-8C3E-82D4145BB4B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -70,6 +71,17 @@ Global
 		{7C71092A-9C56-48CE-AF13-E343CA9B79CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C71092A-9C56-48CE-AF13-E343CA9B79CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C71092A-9C56-48CE-AF13-E343CA9B79CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CEC855-6904-48D9-953B-67A49D5D7C0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CEC855-6904-48D9-953B-67A49D5D7C0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CEC855-6904-48D9-953B-67A49D5D7C0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CEC855-6904-48D9-953B-67A49D5D7C0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBDB1763-983A-47CB-B08A-E17F75FCE47A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBDB1763-983A-47CB-B08A-E17F75FCE47A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBDB1763-983A-47CB-B08A-E17F75FCE47A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDB1763-983A-47CB-B08A-E17F75FCE47A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{556C06B9-E0B6-44E5-A7D0-F352C6E11A99} = {0BA21720-0128-40EE-A15F-C2E4E82B75E4}
@@ -84,5 +96,10 @@ Global
 		{30C12F51-33D5-4BD1-893E-A5BD4C371477} = {0BA21720-0128-40EE-A15F-C2E4E82B75E4}
 		{D5FD46CC-0AB5-47CF-86BA-5635FE8D77DE} = {30C12F51-33D5-4BD1-893E-A5BD4C371477}
 		{7C71092A-9C56-48CE-AF13-E343CA9B79CD} = {30C12F51-33D5-4BD1-893E-A5BD4C371477}
+		{A5CEC855-6904-48D9-953B-67A49D5D7C0D} = {30C12F51-33D5-4BD1-893E-A5BD4C371477}
+		{FBDB1763-983A-47CB-B08A-E17F75FCE47A} = {30C12F51-33D5-4BD1-893E-A5BD4C371477}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {517B1F75-BA56-494F-BD53-A908F8940264}
 	EndGlobalSection
 EndGlobal

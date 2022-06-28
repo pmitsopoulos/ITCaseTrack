@@ -1,0 +1,118 @@
+@page "/cases/form/{id?}"
+
+    <div class="container" style="max-height: 90vh; height: auto; min-height: 40vh; overflow-y: scroll;">
+        <EditForm Model="@Case" OnValidSubmit="Post">
+            <FluentValidationValidator Validator="@validator" />
+          
+            <div class="row">
+                @* <GInputSelect Id="CaseSystemBindLabel"
+                OnClick="AddNewAppSystem"
+                Icon="add" 
+                Class="col-lg-3 col-md-12"
+                TData="@AppSystemDto"
+                TValue="string"
+                Label="System"
+                Data="@AppSystems"
+                OptionValue="Id"
+                OptionDisplay="Name"
+                @bind-BindedValue="Case.ApplicationSystemId"/> *@
+                
+                <div class="form-group spacing col-lg-3 col-md-12">
+                    <label class="form-label inline-label" for="case-system">
+                        System
+                    </label>
+                    
+                    @* <MudLink Color=Color.Primary style="float:right" type="button" @onclick="AddNewAppSystem" class="link-info material-icons">add</MudLink> 
+                    <MudLink style="float:right" type="button"  @onclick="ContactDetails" class="link-warning material-icons">contacts</MudLink> *@
+                    <InputSelect class="custom-select form-control" id="case-system" @bind-Value="Case.ApplicationSystemId">
+                        <option value="@String.Empty">None</option>
+                        @foreach(var item in AppSystems)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </InputSelect>
+                    <MudIconButton Style="position:absolute;top:0;right:0" OnClick="AddNewAppSystem" Icon="@Icons.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" />
+                 
+                </div>
+
+                <GInputDate Id="case-issued-date" 
+                Class="col-lg-3 col-md-12"
+                Label="Issued Date"
+                @bind-BindedValue="@Case.DateIssued" />
+                
+
+                <GInputDate Id="case-due-date" 
+                Class="col-lg-3 col-md-12"
+                Label="Due Date"
+                @bind-BindedValue="@Case.DueDate" />
+                
+
+                <GToggleSwitch Class="col-lg-3 col-md-12"
+                Id="case-resolved"
+                @bind-BindedValue="@Case.Closed"
+                Label="Status"
+                ToggleOffMessage="Pending"
+                ToggleOnMessage="Closed"
+                />
+            </div>
+            <div class="row">
+                <GInputTextArea Id="case-description"
+                Class="col-12"
+                @bind-BindedValue="Case.Description"
+                Label="Description"
+                />
+            </div>
+            <div class="row">
+                <GInputTextArea Id="case-at" 
+                Class="col-lg-6 col-md-12"
+                @bind-BindedValue="Case.ActionsTaken"
+                Label="Actions Taken"/>
+                <GInputTextArea Id="case-sc" 
+                Class="col-lg-6 col-md-12"
+                @bind-BindedValue="Case.SolutionComments"
+                Label="Solution"/>
+            </div>
+            <div class="row">
+                <div class="form-group spacing col-12">
+                    <label class="form-label" for="case-atts">Attachments</label>
+                    <InputFile id="case-atts" class="form-control" OnChange="HandleChange" multiple  />
+                </div>
+                @if(Files.Count>0)
+                {
+                    <div class="spacing">
+                        <ul>
+                            @foreach(var f in Files) 
+                            {
+                                <li>
+                                    @f
+                                    <a color="@Color.Info" class="btn-sm material-icons"href="https://localhost:7099/api/files/download/@Case.Id/@f" target="blank">download</a>  
+                                    <a type="button" color="darkred"class="btn-sm text-danger material-icons" href="#" @onclick="() => OnFileDelete(f)">delete</a>   
+                                </li>
+                            }
+                            @if(Files.Count>1)
+                            {
+                                <li>
+                                    <a href="https://localhost:7099/api/files/downloadAll/@Case.Id" class="btn btn-info material-icons">download</a> Download All
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else if(Files.Count==0)
+                {
+                    <p>No Attachments Found...</p>
+                }
+                else
+                {
+                    <MudProgressLinear Color="Color.Info" Indeterminate="true" Class="my-7" />
+                }
+            <div class="form-group spacing col-12">
+           
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Done" ButtonType="ButtonType.Submit">Confirm Changes</MudButton>
+                    <MudButton OnClick="OnFormCancellation"Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Filled.Clear" ButtonType="ButtonType.Button">Cancel</MudButton>      
+               
+                  <ValidationSummary/> 
+                </div>
+            </div>
+        </EditForm>
+    </div>

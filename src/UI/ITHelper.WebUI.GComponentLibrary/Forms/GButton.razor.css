@@ -1,0 +1,57 @@
+﻿button {
+
+    display: inline-flex;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    border: 1px none black;
+    padding: 6px;
+    width: auto;
+    background-color: #b1d2db;
+}
+button:hover {
+    color:white;
+    background-color:rgb(0, 114, 97);
+}
+
+.button-icon {
+    margin:auto;
+}
+
+.confirmation-button {
+    color:white;
+    background-color:forestgreen;
+    max-width:300px;
+    min-width:120px;
+}
+
+.cancellation-button {
+    color:white;
+    background-color: darkred;
+    width: 120px;
+}
+
+.delete-button {
+    color: white;
+    background-color: darkred;
+}
+
+.create-button {
+    color:white;
+    background-color: #0b5ed7;
+}
+
+.preview-button {
+    color: white;
+    background-color: #1b2e28;
+}
+
+.edit-button {
+    color: white;
+    background-color: orangered;
+}
+
+.search-button{
+    padding:7px;
+    border-radius:0px 5px 5px 0px;
+
+}

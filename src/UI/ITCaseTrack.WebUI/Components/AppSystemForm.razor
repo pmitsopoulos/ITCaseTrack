@@ -1,0 +1,43 @@
+@page "/systems/form/{id?}"
+@using Application.DTOs.ContactDTOs
+
+
+<div class="container" style="max-height: 85vh; height: auto; min-height: 40vh; overflow-y: scroll;">    
+    <EditForm Model="@AppSystem" OnValidSubmit="Post">
+        <FluentValidationValidator Validator="@validator"/>
+        <ValidationSummary/>
+
+        <div class="row">
+            <GInputText Id="sys-name" Class="col-lg-6 col-md-12" Label="System Name" @bind-BindedValue="@AppSystem.Name"/>
+            <ValidationMessage For="(() => AppSystem.Name)"/>
+           <div class="form-group spacing col-lg-3 col-md-12">
+                    <label class="form-label inline-label" for="system-contact">
+                        Contact
+                    </label>
+                    
+                    @* <MudLink Color=Color.Primary style="float:right" type="button" @onclick="AddNewAppSystem" class="link-info material-icons">add</MudLink> 
+                    <MudLink style="float:right" type="button"  @onclick="ContactDetails" class="link-warning material-icons">contacts</MudLink> *@
+                    <InputSelect class="custom-select form-control" id="system-contact" @bind-Value="AppSystem.ContactId">
+                        <option value="@String.Empty">None</option>
+                        @foreach(var item in ContactsList)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </InputSelect>
+                    <MudIconButton ButtonType="ButtonType.Button" Style="position:absolute;top:0;right:0" OnClick="OnAddClick" Icon="@Icons.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" />
+                 
+            </div>
+            <ValidationMessage For="@(() => AppSystem.ContactId)" />
+        </div>
+        <div class="row">
+            <GInputTextArea Id="sys-desc" Class="col-12" Label="Description" @bind-BindedValue="@AppSystem.Description"/>
+            <ValidationMessage For="(() => AppSystem.Description)"/>
+        </div>
+         <div class="row">
+             <div class="form-group col-12">
+                <MudButton  Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.Done" ButtonType="ButtonType.Submit">Confirm Changes</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Filled.Clear" ButtonType="ButtonType.Submit">Cancel</MudButton>      
+            </div>
+        </div>
+    </EditForm>
+</div>

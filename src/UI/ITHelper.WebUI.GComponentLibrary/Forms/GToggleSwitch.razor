@@ -1,0 +1,25 @@
+
+<div class="form-group spacing @Class">
+    <div class="toggle-desc-container">
+        <div>
+
+            <label class="form-label"for="@Id">@Label</label>
+
+                @if(BindedValue)
+                    {
+                        <span class="success" >@ToggleOnMessage</span>
+                    }
+                    else
+                    {
+                        <span class="fail">@ToggleOffMessage</span>
+                    }
+        </div>
+
+        <div class="toggle-container">
+            <label class="switch"> 
+            <input type="checkbox" @bind-value="@BindedValue" id="@Id" bind-value:event="onchange" checked="@BindedValue" @onblur="@UpdateBindedValue"/>
+            <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+</div>

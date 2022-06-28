@@ -1,0 +1,80 @@
+@using Application.DTOs.CaseDTOs
+@if(Cases.Count>0)
+{  
+    <MudText Typo="Typo.h5">Cases</MudText>
+    <MudTable Items="@CaseEntries" FixedHeader="@true" Hover="true" SortLabel="Sort By" Filter="new Func<CaseEntry,bool>(SearchFilter)">
+         <ToolBarContent>
+            <MudTextField Immediate=true @bind-Value="searchTerm" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" ></MudTextField>
+            <MudSpacer />
+            <MudIconButton OnClick="OnAddClick" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Icon="@Icons.Material.Filled.Add"></MudIconButton>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh><MudTableSortLabel SortBy="new Func<CaseEntry, object>(x => x.Case.Closed)">Resolved</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<CaseEntry, object>(x => x.Case.ApplicationSystemId)">System</MudTableSortLabel></MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Issued</MudTh>
+            <MudTh><MudTableSortLabel SortBy="new Func<CaseEntry, object>(x => x.Case.DueDate)">Due Date</MudTableSortLabel></MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+         <ChildRowContent >
+                @if(context.Revealed)
+                {
+                    <MudTr>
+                        <td colspan="6">
+                            <CaseForm Id="@context.Case.Id" />
+                        </td>
+                    </MudTr>
+                }
+        </ChildRowContent>
+            <RowTemplate>
+                <MudTd DataLabel="Resolved">
+                    <div>
+                    @if(context.Case.Closed)
+                    {
+                        <div style="display:inline-block;border-radius:100%;background-color:#26ffda;width:20px;height:20px;"></div> <strong>Closed</strong> 
+                    }
+                    else
+                    {
+                        <div style="display:inline-block;border-radius:100%;background-color:darkred;width:20px;height:20px;"></div> <strong>Pending</strong>
+                    } 
+                    </div>
+
+                </MudTd>
+                <MudTd DataLabel="System">
+                     @if(!String.IsNullOrEmpty(context.Case.ApplicationSystemId))
+                        {
+                            <MudIconButton OnClick="() => OnContactClick(context.Case.ApplicationSystemId)" Icon="@Icons.Filled.ContactPage" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" /> 
+                            <b>&ensp;</b>
+                            @RetrieveSystem(context.Case.ApplicationSystemId);
+                        }
+                </MudTd>
+                <MudTd DataLabel="Description">@context.Case.Description</MudTd>
+                <MudTd DataLabel="Issued">@context.Case.DateIssued</MudTd>
+                <MudTd DataLabel="Due Date">@context.Case.DueDate</MudTd>
+                <MudTd DataLabel="Controls">
+                    <MudButtonGroup Color="Color.Primary" Variant="Variant.Filled">
+                        @* <MudIconButton Color="Color.Warning" Icon="@Icons.Material.Filled.Preview"></MudIconButton> *@
+                        <MudIconButton OnClick="()=>OnEditClick(context)" Color="Color.Default" HoverColor="Color.Secondary"Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                        <MudIconButton OnClick="()=>OnDeleteClick(context)"Color="Color.Default" HoverColor="Color.Info"Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                    </MudButtonGroup>
+                </MudTd>
+            </RowTemplate>
+            <ChildRowContent>
+                @if(context.Revealed)
+                {
+                    <MudTr>
+                        <td colspan="6">
+                            <CaseForm OnFormSubmit="HandleFormChanges" OnFormCancellation="()=>OnEditClick(context)" Id="@context.Case.Id" Case="@context.Case" />
+                        </td>
+                    </MudTr>
+                }
+            </ChildRowContent>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{2, 5, 10, 50, 100}" />
+            </PagerContent>
+    </MudTable>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+}

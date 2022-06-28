@@ -1,0 +1,14 @@
+<MudList Clickable="true">
+        <MudListSubheader >
+           <MudText Typo="Typo.subtitle1">@ContactV.Name</MudText> 
+        </MudListSubheader>
+        <MudListItem Icon="@Icons.Material.Filled.Send">
+            @ContactV.Description
+        </MudListItem>
+        <MudListItem Icon="@Icons.Material.Filled.Drafts">
+           @ContactV.Email
+        </MudListItem>
+        <MudListItem Icon="@Icons.Filled.Phone">
+           @ContactV.PhoneNumber
+        </MudListItem>
+</MudList>
