@@ -1,0 +1,55 @@
+@page "/contacts/table"
+@using Application.DTOs.ContactDTOs
+@using Models
+@if(ContactEntries.Count>0)
+{  
+    <MudTable Items="@ContactEntries" FixedHeader="@true" Hover="true" SortLabel="Sort By" Filter="new Func<TableEntry<ContactDto>,bool>(SearchFilter)">
+         <ToolBarContent>
+            <MudText Typo="Typo.h5">Cases</MudText>
+            <MudSpacer />
+            <MudTextField Immediate=true @bind-Value="searchTerm" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" ></MudTextField>
+            <MudSpacer />
+            <MudIconButton OnClick="OnAddClick" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Icon="@Icons.Material.Filled.Add"></MudIconButton>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Phone Number</MudTh>
+            <MudTh>Email</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">
+                    @context.Entity.Name
+                </MudTd>
+                <MudTd DataLabel="Description">
+                    @context.Entity.Description
+                </MudTd>
+                <MudTd DataLabel="Phone Number">@context.Entity.PhoneNumber</MudTd>
+                <MudTd DataLabel="Issued">@context.Entity.Email</MudTd>
+                <MudTd DataLabel="Controls">
+                    <MudButtonGroup Color="Color.Primary" Variant="Variant.Filled">
+                        <MudIconButton OnClick="()=>OnEditClick(context)" Color="Color.Default" HoverColor="Color.Secondary"Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                        <MudIconButton OnClick="()=>OnDeleteClick(context)"Color="Color.Default" HoverColor="Color.Info"Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                    </MudButtonGroup>
+                </MudTd>
+            </RowTemplate>
+            <ChildRowContent>
+                @if(context.Revealed)
+                {
+                    <MudTr>
+                        <td colspan="6">
+                            <ContactForm OnPost="()=>OnEditClick(context)" OnCancel="()=>OnEditClick(context)" Id="@context.Entity.Id" Contact="@context.Entity" />
+                        </td>
+                    </MudTr>
+                }
+            </ChildRowContent>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{2, 5, 10, 50, 100}" />
+            </PagerContent>
+    </MudTable>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+} 

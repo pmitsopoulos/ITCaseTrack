@@ -29,6 +29,7 @@ namespace ITCaseTrack.WebUI.Components
         public NavigationManager nav{get;set;}
         [Inject]
         public ISnackbar notification{get;set;}
+        
         [Inject]
         public HttpClient client {get;set;}
         [Parameter]

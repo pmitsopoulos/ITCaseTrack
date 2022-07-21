@@ -34,19 +34,24 @@ namespace ITCaseTrack.WebUI.Components
         public EventCallback OnCancel{get;set;}
         [Parameter]
         public EventCallback OnPost{get;set;}
+
+        [Parameter]
         public AppSystemDto AppSystem { get; set; } = new AppSystemDto();
 
         public List<ContactDto> ContactsList { get; set; } = new List<ContactDto>();
 
-
+        private bool isNewSystem= false; 
 
         protected override async Task OnInitializedAsync()
         {
             ContactsList = await client.GetFromJsonAsync<List<ContactDto>>("https://localhost:7099/api/Contacts");
-                
             if(!String.IsNullOrEmpty(Id))
             {
                 AppSystem = await client.GetFromJsonAsync<AppSystemDto>($"https://localhost:7099/api/AppSystems/{Id}");
+            }
+            else
+            {
+                isNewSystem = true;
             }
         }
         public async Task OnAddClick()
@@ -64,20 +69,33 @@ namespace ITCaseTrack.WebUI.Components
 
             dialog.Show<ContactForm>("Create New Contact", parameters, options);
         }
-        public async Task Post() 
+        
+
+        private async Task Post()
         {
-            try 
-            {
-                await client.PostAsJsonAsync<AppSystemDto>("https://localhost:7099/api/AppSystems",AppSystem);
-                notification.Add("New System Added Succesfully", Severity.Success);
-                await OnPost.InvokeAsync();
-                mudDialog.Close();
+            try{
+                if(String.IsNullOrEmpty(AppSystem.Id))
+                {
+                    await client.PostAsJsonAsync<AppSystemDto>("https://localhost:7099/api/AppSystems", AppSystem);
+                    notification.Add("System created successfully.", Severity.Success);
+                }
+                else
+                {
+                    await client.PutAsJsonAsync<AppSystemDto>("https://localhost:7099/api/AppSystems", AppSystem);
+                    notification.Add("System updated successfully.", Severity.Success);
+                }
             }
-            catch(Exception ex) {
-                notification.Add(ex.Message, Severity.Error);
+            catch(Exception ex)
+            {
+                notification.Add($"Something went wrong during the implementation of your changes. Details: {ex.Message}");
+            }
+            await OnPost.InvokeAsync();
+            if(isNewSystem)
+            {
                 mudDialog.Close();
             }
         }
+        
         
         public async Task Cancel()
         {

@@ -1,0 +1,66 @@
+@page "/systems/table"
+@using Application.DTOs.AppSystemDTOs
+@using Models
+@if(Systems.Count>0)
+{  
+    <MudTable Items="@SystemEntries" Bordered="true" Striped="true" FixedHeader="@true" Hover="true" Filter="new Func<TableEntry<AppSystemDto>,bool>(SearchFilter)">
+         <ToolBarContent>
+            <MudText Typo="Typo.h5">Systems</MudText>
+            <MudSpacer />
+            <MudTextField Immediate=true @bind-Value="searchTerm" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" ></MudTextField>
+            <MudSpacer />
+            <MudIconButton OnClick="OnAddClick" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Icon="@Icons.Material.Filled.Add"></MudIconButton>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Contact</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+         <ChildRowContent>
+                @if(context.Revealed)
+                {
+                    <MudTr>
+                        <td colspan="6">
+                            <AppSystemForm Id="@context.Entity.Id" />
+                        </td>
+                    </MudTr>
+                }
+        </ChildRowContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">
+                    @context.Entity.Name
+                </MudTd>
+                <MudTd DataLabel="Description">
+                    @context.Entity.Description
+                </MudTd>
+                <MudTd DataLabel="Contact">
+                     <MudIconButton OnClick="() => OnContactClick(context.Entity.ContactId)" Icon="@Icons.Filled.ContactPage" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" /> 
+                </MudTd>
+                <MudTd DataLabel="Controls">
+                    <MudButtonGroup Color="Color.Primary" Variant="Variant.Filled">
+                        @* <MudIconButton Color="Color.Warning" Icon="@Icons.Material.Filled.Preview"></MudIconButton> *@
+                        <MudIconButton OnClick="() => OnEditClick(context)" Color="Color.Default" HoverColor="Color.Secondary"Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                        <MudIconButton OnClick="() => OnDeleteClick(context)" Color="Color.Default" HoverColor="Color.Info"Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+                    </MudButtonGroup>
+                </MudTd>
+            </RowTemplate>
+            <ChildRowContent>
+                @if(context.Revealed)
+                {
+                    <MudTr>
+                        <td colspan="6">
+                            <AppSystemForm OnPost="()=>OnEditClick(context)" OnCancel="()=>OnEditClick(context)" Id="@context.Entity.Id" AppSystem="@context.Entity" />
+                        </td>
+                    </MudTr>
+                }
+            </ChildRowContent>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{2, 5, 10, 50, 100}" />
+            </PagerContent>
+    </MudTable>
+}
+else
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+}

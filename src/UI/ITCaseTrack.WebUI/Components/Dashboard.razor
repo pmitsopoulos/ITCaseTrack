@@ -3,14 +3,9 @@
     <MudGrid>
         <MudItem xs="12" sm="12" md="12">
             <MudPaper Elevation="0" Class="pa-4" Style="height:auto">
-                <MudText Typo="Typo.h2">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</MudText>
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="12" md="12">
-            <MudPaper Elevation="0" Class="pa-4" Style="height:auto">
                 <MudChart ChartOptions="@opts" ChartType="ChartType.Donut" Width="200px" Height="200px" InputData="@data" LegendPosition="Position.Bottom" InputLabels="@labels">
                     <CustomGraphics>
-                        <text class="donut-inner-text" x="47%" y="35%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica" font-size="3">Total Cases</text>
+                        <text class="donut-inner-text @CustomClass" x="47%" y="35%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica" font-size="3">Total Cases</text>
                         <text class="donut-inner-text" x="47%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica" font-size="4">@data.Sum().ToString()</text>
                         <text class="donut-inner-text" x="47%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica" font-size="3"> R: @data[1]</text>
                         <text class="donut-inner-text" x="47%" y="65%" dominant-baseline="middle" text-anchor="middle" font-family="Helvetica" font-size="3">P: @data[0] </text>

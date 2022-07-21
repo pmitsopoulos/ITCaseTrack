@@ -18,6 +18,7 @@ namespace ITCaseTrack.WebUI.Components
         private double resolvedCount;
         private double pendingCount;
         public List<ChartSeries> Series = new List<ChartSeries>();
+        private string CustomClass="";
 
 
         private ChartOptions opts = new ChartOptions()

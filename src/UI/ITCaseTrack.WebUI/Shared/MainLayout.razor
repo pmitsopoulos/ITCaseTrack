@@ -3,14 +3,44 @@
 <MudThemeProvider  @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
-<MudMainContent>
-@* <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label=""/> *@
-    <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
-        @Body
-    </MudContainer>
-</MudMainContent>
 
+
+<MudLayout>
+    <MudAppBar Bottom="false" Fixed="true" Color="Color.Primary" Elevation="1">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="ToggleDrawer"/>
+            <MudSpacer/>
+            <MudText Typo="Typo.h4">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</MudText>
+            <MudSpacer/>
+           <MudToggleIconButton @bind-Toggled="@_isDarkMode"
+                     Icon="@Icons.Filled.DarkMode" Color="@Color.Warning" Title="Dark Mode"
+                     ToggledIcon="@Icons.Filled.LightMode" ToggledColor="@Color.Warning" ToggledTitle="Light"/>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@open">
+        <MudNavMenu Color="@Color.Primary" Rounded="true" Margin="@Margin.Normal">
+                <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Filled.Checklist">Cases</MudNavLink>
+                <MudNavLink Href="/systems/table" Match="NavLinkMatch.All" Icon="@Icons.Filled.MiscellaneousServices">Systems</MudNavLink>
+                <MudNavLink Href="/contacts/table" Match="NavLinkMatch.All" Icon="@Icons.Filled.Contacts">Contacts</MudNavLink>
+                <MudDivider/>
+                <MudNavLink Href="/settings" Match="NavLinkMatch.All" Icon="@Icons.Filled.Settings">Settings</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+    @* <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label=""/> *@
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 @code{
     private MudTheme _theme = new();
     private bool _isDarkMode=true;
+    bool open = false;
+    void ToggleDrawer()
+    {
+        open = !open;
+    } 
+    void ToggleTheme()
+    {
+        _isDarkMode = !_isDarkMode;
+    } 
 }

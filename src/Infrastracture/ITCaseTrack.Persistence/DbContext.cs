@@ -19,8 +19,6 @@ namespace ITCaseTrack.Persistence
 
         private readonly IMongoDatabase MongoDatabase;
         private readonly IOptions<CaseStudyDbSettings> options;
-
-
         public DbContext(IOptions<CaseStudyDbSettings> db_settings)
         {
             this.options = db_settings;

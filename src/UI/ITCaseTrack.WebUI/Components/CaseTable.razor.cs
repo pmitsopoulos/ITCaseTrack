@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using ITCaseTrack.Application.DTOs.AppSystemDTOs;
 using ITCaseTrack.Application.DTOs.CaseDTOs;
 using ITCaseTrack.Application.DTOs.ContactDTOs;
+using ITCaseTrack.WebUI.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
 
 namespace ITCaseTrack.WebUI.Components
@@ -19,15 +21,16 @@ namespace ITCaseTrack.WebUI.Components
         ISnackbar notification {get;set;}
         [Inject]
         IDialogService dialog {get;set;}
+        [Inject]
+        IJSRuntime js {get;set;}
 
         public List<CaseDto> Cases {get;set;} = new List<CaseDto>();
-        List<CaseEntry> CaseEntries = new List<CaseEntry>();
+        List<CaseTableEntry> CaseEntries = new List<CaseTableEntry>();
         public List<AppSystemDto> Systems {get;set;} = new List<AppSystemDto>();
         private string searchTerm = "";
 
         [CascadingParameter]
         public double [] data {get; set;}
-        private bool revealed=false;
 
         [Parameter]
         public EventCallback<double[]> UpdateParentChart { get; set; }
@@ -44,9 +47,11 @@ namespace ITCaseTrack.WebUI.Components
                 notification.Add($"There was a problem retrieving the data from the server. Details: {ex.Message}", Severity.Error);
             }
             foreach(var C in Cases)
-            {
+            {   
+                var sys = RetrieveSystem(C.ApplicationSystemId);
+
                 CaseEntries.Add(
-                    new CaseEntry{ Case = C , Revealed = false } 
+                    new CaseTableEntry{ Entity = C , Revealed = false, SystemName = sys  } 
                 );
             }
             StateHasChanged();
@@ -55,7 +60,14 @@ namespace ITCaseTrack.WebUI.Components
         private string RetrieveSystem(string systemId)
         {
             var sys = Systems.FirstOrDefault(x => x.Id == systemId);
-            return sys.Name;
+            if(sys!=null)
+            {
+                return sys.Name;
+            }
+            else
+            {
+                return String.Empty;
+            }
         }
 
         private async Task OnAddClick()
@@ -91,17 +103,13 @@ namespace ITCaseTrack.WebUI.Components
                 }
                 catch{
                     notification.Add("No Contact was found for this system",Severity.Warning);
-                }
-               
-            
-            
-            
+                }   
         }
-        private async Task OnEditClick(CaseEntry c)
+        private async Task OnEditClick(CaseTableEntry c)
         {
            c.Revealed = !c.Revealed;
         }
-        private async Task OnDeleteClick(CaseEntry c)
+        private async Task OnDeleteClick(CaseTableEntry c)
         {
 
             var parameters = new DialogParameters();
@@ -111,17 +119,17 @@ namespace ITCaseTrack.WebUI.Components
 
             var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
 
-            var d = dialog.Show<Dialog>($"Deleting Case: {c.Case.Id}", parameters, options);
+            var d = dialog.Show<Dialog>($"Deleting Case: {c.Entity.Id}", parameters, options);
             var result = await d.Result;
             if(!result.Cancelled)
             {
                 try 
                 {
-                    await client.DeleteAsync($"https://localhost:7099/api/Cases/{c.Case.Id}");
+                    await client.DeleteAsync($"https://localhost:7099/api/Cases/{c.Entity.Id}");
                     notification.Add($"Case Deleted.",Severity.Warning);
                     CaseEntries.Remove(c);
-                    data[1] = CaseEntries.Where(x => x.Case.Closed == true).Count();
-                    data[0] = CaseEntries.Where(x => x.Case.Closed == false).Count();
+                    data[1] = CaseEntries.Where(x => x.Entity.Closed == true).Count();
+                    data[0] = CaseEntries.Where(x => x.Entity.Closed == false).Count();
                     await UpdateParentChart.InvokeAsync(data);
                 }
                 catch(Exception ex)
@@ -141,19 +149,13 @@ namespace ITCaseTrack.WebUI.Components
 
         private async Task HandleFormChanges()
         {
-            data[1] = CaseEntries.Where(x => x.Case.Closed == true).Count();
-            data[0] = CaseEntries.Where(x => x.Case.Closed == false).Count();
+            data[1] = CaseEntries.Where(x => x.Entity.Closed == true).Count();
+            data[0] = CaseEntries.Where(x => x.Entity.Closed == false).Count();
             await UpdateParentChart.InvokeAsync(data);
             StateHasChanged();
         }
 
-        class CaseEntry
-        {
-            public bool Revealed { get; set; }
-            public CaseDto Case { get; set; }
-            public string SystemName{get;set;}
-        }
-        private bool SearchCase(CaseEntry dto, string term)
+        private bool SearchCase(CaseTableEntry dto, string term)
         {
 
             // if(String.IsNullOrEmpty(term))
@@ -167,13 +169,13 @@ namespace ITCaseTrack.WebUI.Components
             //     return true;
             // }
             
-            if(dto.Case.Description.ToLower().Contains(term.ToLower()))
+            if(dto.Entity.Description.ToLower().Contains(term.ToLower()) || dto.SystemName.ToLower().Contains(term.ToLower()))
             {
                 return true;
             }
             return false;
         }
-        private bool SearchFilter(CaseEntry element) => SearchCase(element, searchTerm);
+        private bool SearchFilter(CaseTableEntry element) => SearchCase(element, searchTerm);
 
     }
 }
